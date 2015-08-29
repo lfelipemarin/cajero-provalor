@@ -52,7 +52,7 @@ include_once("config.php");
     $usr->storeFormValues($_POST);
 
     if ($usr->userLogin()) {
-        echo "Welcome";
+        header("Location:datosasociado.php");
     } else {
         echo "Incorrect Username/Password";
     }

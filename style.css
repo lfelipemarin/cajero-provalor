@@ -80,7 +80,7 @@ header#head p a:hover #register {
 #login-wrapper {
     margin: 0px auto;
     width: 310px;
-    height: 180px;
+    height: auto;
     padding: 50px 1px 10px 50px;
     margin-top: 150px;
     -moz-box-shadow: 0px 0px 10px #888;
@@ -94,8 +94,36 @@ header#head p a:hover #register {
 #register-wrapper {
     margin: 0px auto;
     width: 310px;
-    height: 250px;
+    height: auto;
     padding: 50px 1px 10px 50px;
+    margin-top: 100px;
+    -moz-box-shadow: 0px 0px 10px #888;
+    -o-box-shadow: 0px 0px 10px #888;
+    -webkit-box-shadow: 0px 0px 10px #888;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -o-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+}
+
+#money-wrapper{
+    margin: 0px auto;
+    width: 310px;
+    height: auto;
+    padding: 10px 1px 10px 70px;
+    margin-top: 100px;
+    -moz-box-shadow: 0px 0px 10px #888;
+    -o-box-shadow: 0px 0px 10px #888;
+    -webkit-box-shadow: 0px 0px 10px #888;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -o-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+}
+
+#transactions-wrapper{
+    margin: 0px auto;
+    width: auto;
+    height: auto;
+    padding: 10px 1px 10px 50px;
     margin-top: 100px;
     -moz-box-shadow: 0px 0px 10px #888;
     -o-box-shadow: 0px 0px 10px #888;
@@ -181,7 +209,7 @@ input[type="submit"], input[type="button"] {
     display: inline;
     margin: 0 5px;
     margin-left:20px;
-    width: 10em;
+    width: auto;
     padding: 10px;
     border: 2px solid #7c412b;
     -moz-border-radius: 5px;

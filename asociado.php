@@ -27,6 +27,10 @@ include_once("config.php");
                                 <label for="name">Nombre Completo : </label>
                                 <input type="text" id="name" maxlength="100" required autofocus name="name" />
                             </li>
+                            <li>
+                                <label for="asocode">Codigo de Asociado : </label>
+                                <input type="text" id="asocode" maxlength="100" required autofocus name="asocode" />
+                            </li>
 
                             <li>
                                 <label for="usn">Nombre de Usuario : </label>
