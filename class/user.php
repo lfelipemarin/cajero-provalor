@@ -46,6 +46,7 @@ class Users {
                 $_SESSION["name"] = $valid["nombres_completos"];
                 $_SESSION["id"] = $valid["codigo_asociado"];
                 $_SESSION["cod_tarjeta"] = $valid["codigo_tarjeta"];
+                $_SESSION["cod_asociado"] = $valid["codigo_asociado"];
                 $success = true;
             }
             $con = null;
@@ -57,7 +58,6 @@ class Users {
     }
 
     public function register() {
-        $correct = false;
         try {
             $con = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
             $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -77,6 +77,22 @@ class Users {
         }
     }
 
-}
+    public function updatePass() {
+        try {
+            $con = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
+            $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $sql = "UPDATE asociado SET contrasena = :password WHERE codigo_tarjeta = :cardcode";
 
+            $stmt = $con->prepare($sql);
+            session_start();
+            $stmt->bindValue("password", hash("sha256", $this->password . $this->salt), PDO::PARAM_STR);
+            $stmt->bindValue("cardcode", $_SESSION[cod_tarjeta], PDO::PARAM_STR);
+            $stmt->execute();
+            return "Contraseña Cambiada Correctamente";
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+
+}
 ?>

@@ -13,20 +13,41 @@ if ($_SESSION["name"]) {
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
             <title>Asociados Provalor</title>
             <link rel="stylesheet" type="text/css" href="style.css" />
+            <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+            <script src="jsFiles/myjs.js" type="text/javascript"></script>
+
         </head>
 
         <body>
 
             <header id="head" >
-                <p>Asociados Provalor: Bienvenido <?php echo $_SESSION["name"]; ?>
-                    Su código de tarjeta es: <?php echo $_SESSION["cod_tarjeta"]; ?></p>
+                <p>Asociados Provalor: Bienvenido <?php echo $_SESSION["name"]; ?><br>
+                    Codigo de Asociado: <?php echo $_SESSION["cod_asociado"] ?>
+                </p>
+                <p><a href="cambiar_contra.php"><span id="register">Cambiar Contraseña</span></a>
+                    <a href="userLogout.php"><span id="chpwd">Cerrar Sesion</span></a></p>
             </header>
 
             <div id="main-wrapper">
                 <div id="money-wrapper">
                     <ul>
                         <li>
-                            <p><font size="6"> Valor: $4456456 </font></p>
+                            <p><font size="6"> Valor: <?php
+                                try {
+                                    $con = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
+                                    $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                                    $sql = "SELECT valor FROM tarjeta where codigo_tarjeta = :codtarjeta";
+
+                                    $stmt = $con->prepare($sql);
+                                    $stmt->bindValue("codtarjeta", $_SESSION["cod_tarjeta"], PDO::PARAM_STR);
+                                    $stmt->execute();
+
+                                    echo $stmt->fetchColumn();
+                                    $con = null;
+                                } catch (PDOException $e) {
+                                    echo $e->getMessage();
+                                }
+                                ?> </font></p>
                         </li>
 
                     </ul>
@@ -34,7 +55,8 @@ if ($_SESSION["name"]) {
                 <div id="transactions-wrapper">
                     <ul>
                         <li class="buttons">
-                            <input type="submit" name="accept" value="Aceptar Todas los Movimientos" />
+                            <input type="submit" name="accept" value="Aceptar Todas los Movimientos" 
+                                   onclick="updateMovs()" />
                         </li>
                     </ul>
                     </br>

@@ -47,7 +47,7 @@ table {
 /* Styling the Header */
 header#head {
     background-color:#333333;
-    height: 50px;
+    height: 80px;
     width: 100%;
 }
 
@@ -66,6 +66,15 @@ header#head p #register {
 }
 
 header#head p a:hover #register {
+    color:#999;
+}
+header#head p #chpwd {
+    float: right;
+    margin-top: -40px;
+    color: #ef7d50;
+}
+
+header#head p a:hover #chpwd {
     color:#999;
 }
 
