@@ -245,3 +245,10 @@ input[type="button"]:active, input[type="button"]:active {
     -webkit-box-shadow: 0 0 .5em rgba(0, 0, 0, .8) inset;
     box-shadow: 0 0 .5em rgba(0, 0, 0, .8) inset;
 }
+
+.selected {
+    background-color: brown;
+    color: #FFF;
+}
+
+#records_table td {cursor: pointer;}

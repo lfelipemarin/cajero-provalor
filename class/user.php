@@ -6,6 +6,7 @@ class Users {
     public $name = null;
     public $username = null;
     public $password = null;
+    public $usrtype = null;
     public $cardcode = null;
     public $salt = "Zo4rU5Z1YyKJAASY0PT6EUg7BBYdlEhPaNLuxAwU8lqu1ElzHv0Ri7EM6irpx5w";
 
@@ -19,6 +20,8 @@ class Users {
             $this->username = stripslashes(strip_tags($data['username']));
         if (isset($data['password']))
             $this->password = stripslashes(strip_tags($data['password']));
+        if (isset($data['usrtype']))
+            $this->usrtype = stripslashes(strip_tags($data['usrtype']));
         if (isset($data['cardcode']))
             $this->cardcode = stripslashes(strip_tags($data['cardcode']));
     }
@@ -61,14 +64,15 @@ class Users {
         try {
             $con = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
             $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "INSERT INTO asociado(codigo_asociado, nombres_completos, usuario, contrasena, codigo_tarjeta) "
-                    . "VALUES(:asocode, :name, :username, :password, :cardcode)";
+            $sql = "INSERT INTO asociado(codigo_asociado, nombres_completos, usuario, contrasena, tipo_usuario, "
+                    . "codigo_tarjeta) VALUES(:asocode, :name, :username, :password, :usrtype, :cardcode)";
 
             $stmt = $con->prepare($sql);
             $stmt->bindValue("asocode", $this->asocode, PDO::PARAM_STR);
             $stmt->bindValue("name", $this->name, PDO::PARAM_STR);
             $stmt->bindValue("username", $this->username, PDO::PARAM_STR);
             $stmt->bindValue("password", hash("sha256", $this->password . $this->salt), PDO::PARAM_STR);
+            $stmt->bindValue("usrtype", $this->usrtype, PDO::PARAM_STR);
             $stmt->bindValue("cardcode", $this->cardcode, PDO::PARAM_STR);
             $stmt->execute();
             return "Registration Successful <br/> <a href='index.php'>Login Now</a>";

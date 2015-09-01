@@ -15,6 +15,7 @@ if ($_SESSION["name"]) {
             <link rel="stylesheet" type="text/css" href="style.css" />
             <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
             <script src="jsFiles/myjs.js" type="text/javascript"></script>
+            <script src="jsFiles/accounting.min.js" type="text/javascript"></script>
 
         </head>
 
@@ -32,11 +33,12 @@ if ($_SESSION["name"]) {
                 <div id="money-wrapper">
                     <ul>
                         <li>
-                            <p><font size="6"> Valor: <?php
+                            <p><font size="6"> Valor: 
+                                <?php
                                 try {
                                     $con = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
                                     $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                                    $sql = "SELECT valor FROM tarjeta where codigo_tarjeta = :codtarjeta";
+                                    $sql = "SELECT CONCAT('$',FORMAT(valor,2)) FROM tarjeta where codigo_tarjeta = :codtarjeta";
 
                                     $stmt = $con->prepare($sql);
                                     $stmt->bindValue("codtarjeta", $_SESSION["cod_tarjeta"], PDO::PARAM_STR);
@@ -68,7 +70,7 @@ if ($_SESSION["name"]) {
                         th.tg-sort-header::-moz-selection { background:transparent; }th.tg-sort-header::selection      { background:transparent; }th.tg-sort-header { cursor:pointer; }table th.tg-sort-header:after {  content:'';  float:right;  margin-top:7px;  border-width:0 4px 4px;  border-style:solid;  border-color:#404040 transparent;  visibility:hidden;  }table th.tg-sort-header:hover:after {  visibility:visible;  }table th.tg-sort-desc:after,table th.tg-sort-asc:after,table th.tg-sort-asc:hover:after {  visibility:visible;  opacity:0.4;  }table th.tg-sort-desc:after {  border-bottom:none;  border-width:4px 4px 0;  }@media screen and (max-width: 767px) {.tg {width: auto !important;}.tg col {width: auto !important;}.tg-wrap {overflow-x: auto;-webkit-overflow-scrolling: touch;margin: auto 0px;}}</style>
                     <div class="tg-wrap">
 
-                        <table id="tg-oIVn0" class="tg">
+                        <table id="records_table" class="tg">
                             <thead>
                                 <tr>
                                     <th class="tg-031e">Movimiento</th>
@@ -216,7 +218,7 @@ if ($_SESSION["name"]) {
                             }
                         }(document);
                         document.addEventListener("DOMContentLoaded", function (n) {
-                            TgTableSort("tg-oIVn0")
+                            TgTableSort("records_table")
                         });</script>
                 </div>
             </div>
