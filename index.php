@@ -1,5 +1,5 @@
 <?php
-include_once("config.php");
+include_once("model/config.php");
 ?>
 
 <?php if (!(isset($_POST['login']) )) { ?>
@@ -8,15 +8,14 @@ include_once("config.php");
     <html>
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+            <link href="view/css/style.css" rel="stylesheet" type="text/css"/>
             <title>Asociados Provalor</title>
-            <link rel="stylesheet" type="text/css" href="style.css" />
         </head>
 
         <body>
 
             <header id="head" >
-                <p>Asociados Provalor</p>
-                <p><a href="asociado.php"><span id="register">Registrar Asociado</span></a></p>
+                <p>Aplicación Para Manejo de Transacciones - Provalor</p>
             </header>
 
             <div id="main-wrapper">
@@ -25,12 +24,19 @@ include_once("config.php");
                         <ul>
                             <li>
                                 <label for="usn">Nombre de Usuario : </label>
-                                <input type="text" maxlength="30" required autofocus name="username" />
+                                <input id="usn"type="text" maxlength="30" required autofocus name="username" />
                             </li>
 
                             <li>
+                                <label for="usrtype">Tipo de Usuario : </label>
+                                <select id="usrtype" name="usrtype" class="form-control" required="">
+                                    <option value="Asociado">Asociado</option>
+                                    <option value="Administrador">Administrador</option>
+                                </select> 
+                            </li>
+                            <li>
                                 <label for="passwd">Contraseña : </label>
-                                <input type="password" maxlength="30" required name="password" />
+                                <input type="password" id="passwd" maxlength="30" required name="password" />
                             </li>
                             <li class="buttons">
                                 <input type="submit" name="login" value="Ingresar" />
@@ -51,10 +57,11 @@ include_once("config.php");
     $usr = new Users;
     $usr->storeFormValues($_POST);
 
-    if ($usr->userLogin()) {
-        header("Location:datosasociado.php");
+    if ($usr->userLogin() && $_POST['usrtype'] == "Asociado") {
+        header("Location: view/datosasociado.php");
+    } elseif ($usr->adminLogin() && $_POST['usrtype'] == "Administrador") {
+        header("Location: view/administracion.php");
     } else {
         echo "Incorrect Username/Password";
     }
 }
-?>
